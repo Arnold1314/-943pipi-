@@ -1,0 +1,38 @@
+#include<bits/stdc++.h> 
+using namespace std;
+struct Node{
+	int data;
+	Node *next;
+};
+int main(){
+	struct Node *h=new Node;
+	struct Node *r=NULL;
+	int n,k,t;
+	scanf("%d%d",&n,&k);
+	struct Node *sign=h;
+	for(int i=0;i<n;i++){
+		scanf("%d",&t);
+		r=new Node;
+		sign->next=r;
+		r->data=t;
+		r->next=NULL;
+		sign=r;
+	}
+	sign=h;
+	for(int i=0;i<n-k;i++){
+		sign =sign->next;
+	}
+	if(k==1)free(sign->next);
+	else{
+		Node *d=sign->next;
+		sign->next=d->next;
+		free(d);
+	}
+	sign=h;
+	for(int i=0;i<n-1;i++){
+		sign =sign->next;
+		printf("%d ",sign->data);
+		}
+	return 0;
+}
+	
