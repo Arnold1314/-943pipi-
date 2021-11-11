@@ -1,0 +1,23 @@
+#include<bits/stdc++.h> 
+using namespace std;
+int main(){
+	int n,k,t;
+	vector<int> sq;
+	scanf("%d",&n);
+	for(int i=0;i<n;i++){
+		scanf("%d",&t);
+		sq.push_back(t);
+	}
+	for(int i=0;i<n/2;i++){
+		k=sq[i];
+		sq[i]=sq[n-i-1];
+		sq[n-i-1]=k;
+	}
+	for(int i=0;i<n;i++){
+		printf("%d ",sq[i]);
+		}
+	return 0;
+}
+	
+
+
