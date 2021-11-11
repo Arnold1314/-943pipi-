@@ -1,0 +1,49 @@
+#include<bits/stdc++.h> 
+using namespace std;
+typedef struct Node{
+	int data;
+	Node *next;
+}LNode;
+int main(){
+	LNode *h=new LNode;
+	LNode *q=NULL;
+	int n,l,r,t;
+	int p=0;
+	scanf("%d%d%d",&n,&l,&r);
+	LNode *sign=h;
+	for(int i=1;i<l;i++){
+		scanf("%d",&t);
+		q=new LNode;
+		sign->next=q;
+		q->data=t;
+		q->next=NULL;
+		sign=q;
+	}
+	for(int i=1;i<=r-l+1;i++){
+		scanf("%d",&t);
+		q=new LNode;
+		q->data=t;
+		q->next=sign->next;
+		sign->next=q;
+	}
+	for(int i=l;i<=n;i++){
+		if(sign->next!=NULL){
+			sign=sign->next;
+		}
+		else{
+			scanf("%d",&t);
+			q=new LNode;
+			sign->next=q;
+			q->data=t;
+			q->next=NULL;
+			sign=q;
+		}
+	}
+	sign=h->next;
+	for(int i=1;i<=n;i++){
+		printf("%d ",sign->data);
+		sign=sign->next;
+	}
+	return 0;
+}
+	
