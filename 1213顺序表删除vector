@@ -1,0 +1,32 @@
+#include<bits/stdc++.h> 
+using namespace std;
+int main(){
+	int n,m,min,t;
+	vector<int> sq;
+	scanf("%d",&n);
+	if(n<=0)printf("error");
+	else {
+		for(int i=0;i<n;i++){
+			scanf("%d",&m);
+			sq.push_back(m);
+		}
+		min=sq[0];
+		t=0;
+		for(int i=0;i<n;i++){
+			if(min>sq[i]){
+			t=i;
+			min=sq[i]; 
+			}
+		}
+		printf("%d\n",sq[t]);
+		sq[t]=sq[n-1];
+		sq.pop_back();
+		for(int i=0;i<n-1;i++){
+			printf("%d ",sq[i]);
+			}
+	}
+		return 0;
+}
+	
+
+
