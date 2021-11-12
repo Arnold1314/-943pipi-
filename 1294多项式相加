@@ -1,0 +1,102 @@
+#include<bits/stdc++.h> 
+using namespace std;
+typedef struct Node{
+	int coef;//系数
+	int expn;//指数 
+	Node *next;
+}LNode,*poly;
+
+int main(){
+	int n,m,a,b;
+	poly pa=new LNode;
+	poly pb=new LNode;
+	pa->next=NULL;
+	pb->next=NULL;
+	scanf("%d%d",&n,&m);
+	poly in=NULL;
+	poly sign_a=NULL;
+	//初始化 
+	for(int i=1;i<=n;i++){
+		scanf("%d%d",&a,&b);//a是指数，b是系数 
+		in=new LNode;
+		in->coef=b;
+		in->expn=a;
+		in->next=NULL;
+		sign_a=pa;
+		while(sign_a->next!=NULL&&a>sign_a->next->expn){
+			sign_a=sign_a->next;
+		}
+		if(sign_a->next!=NULL&&a==sign_a->next->expn){
+		sign_a->next->coef+=b;	
+		}
+		else{
+			in->next=sign_a->next;
+			sign_a->next=in;
+		}
+	}
+/*	sign_a=pa->next;
+	while(sign_a!=NULL){
+		cout<<sign_a->expn<<" "<<sign_a->coef<<endl;
+		sign_a=sign_a->next;
+	}*/ 
+	poly sign_b=NULL;
+	for(int i=1;i<=m;i++){
+		scanf("%d%d",&a,&b);
+		in=new LNode;
+		in->coef=b;
+		in->expn=a;
+		in->next=NULL;
+		sign_b=pb;
+		while(sign_b->next!=NULL&&a>sign_b->next->expn){
+			sign_b=sign_b->next;
+		}
+		if(sign_b->next!=NULL&&a==sign_b->next->expn)
+		sign_b->next->coef+=b;
+		else{
+			in->next=sign_b->next;
+			sign_b->next=in;
+		}
+	}
+			
+
+//按照系数大小排序 存入链表pc ，一定要考虑到相加后可能系数为0 
+	sign_a=pa->next;
+	sign_b=pb->next;
+	poly pc=new LNode;
+	poly sign_c=pc;
+	while(sign_a!=NULL&&sign_b!=NULL){
+		if(sign_a->expn==sign_b->expn){
+			if(sign_a->coef+sign_b->coef!=0) {
+				in=new LNode;
+				in->expn=sign_a->expn;
+				in->coef=sign_a->coef+sign_b->coef;
+				sign_c->next=in;
+				sign_c=in;
+			}
+			sign_a=sign_a->next;
+			sign_b=sign_b->next;
+		}
+		else if(sign_a->expn>sign_b->expn){
+			sign_c->next=sign_b;
+			sign_c=sign_b;
+			sign_b=sign_b->next;
+		}
+		else{
+			sign_c->next=sign_a;
+			sign_c=sign_a;
+			sign_a=sign_a->next;
+		}
+	}
+
+	if(sign_a==NULL){
+		sign_c->next=sign_b;
+	}
+	else sign_c->next=sign_a;
+	sign_c=pc->next;
+	while(sign_c!=NULL){
+		cout<<sign_c->expn<<" "<<sign_c->coef<<endl;
+		sign_c=sign_c->next;
+	}
+	return 0; 
+}
+	
