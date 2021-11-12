@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+void input(vector<int> &q,int n){
+	int t;
+	while(n--){
+		scanf("%d",&t);
+		q.push_back(t);
+	}
+}
+int main(){
+	int n,m,q,r,s,t,x;
+	vector<int> i,j,k;
+	scanf("%d%d%d",&n,&m,&q);
+	 input(i,n);
+	 input(j,m);
+	 input(k,q);
+	 for(r=s=t=0;r<n&&s<m&&t<q;){
+	 	if(i[r]==j[s]&&j[s]==k[t]){
+	 		printf("%d ",i[r]);
+	 		r++;
+	 		s++;
+	 		t++;
+		 }
+		 else{
+		 	x=min({i[r],j[s],k[t]});
+		 	if(x==i[r])r++;
+		 	if(x==j[s])s++;
+		 	if(x==k[t])t++;
+		 }
+	 }
+	 return 0;
+}
