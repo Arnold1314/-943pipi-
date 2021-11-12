@@ -1,0 +1,77 @@
+#include<bits/stdc++.h> 
+using namespace std;
+typedef struct Node{
+	int coef;//系数
+	int expn;//指数 
+	Node *next;
+}LNode,*poly;
+
+poly Create(){
+	int n,c,e;
+	poly L=new LNode,s=L;
+	L->coef=-1;
+	L->expn=-1;
+	L->next=NULL;
+	scanf("%d",&n);
+	poly t=NULL;
+	while(n--){
+		scanf("%d%d",&c,&e);
+		t=new LNode;
+		t->coef=c;
+		t->expn=e;
+		t->next=s->next;
+		s->next=t;
+		s=t;
+	}
+	return L;
+} 
+
+poly Mult(poly h1,poly h2){
+	poly h =new Node,r=h;
+	h->coef=-1;
+	h->expn-1;
+	h->next=NULL;
+	poly r1=h1,r2=h2;
+	int c=0,e=-1;
+	poly t=NULL;
+	while(r1->next!=NULL){
+		r2=h2;
+		while(r2->next!=NULL){
+			c=r1->next->coef*r2->next->coef;
+			e=r1->next->expn+r2->next->expn;
+			r=h;
+			while(r->next!=NULL&&r->next->expn > e)r=r->next;
+			if(r->next!=NULL&&r->next->expn==e){
+				r->next->coef+=c;
+				if(r->next->coef==0){
+					poly i=r->next;
+					r->next=i->next;	
+					free(i);
+				}
+			}
+			else {
+				t=new LNode;
+				t->coef=c;
+				t->expn=e;
+				t->next=r->next;
+				r->next=t;
+				r=t;
+			}
+			r2=r2->next;
+		}
+		r1=r1->next;
+	}
+	return h;
+}
+int main(){
+	poly h1=Create();
+	poly h2=Create();
+	poly h=Mult(h1,h2);
+	if(!h->next)printf("0 0");
+	while(h->next!=NULL){
+		printf("%d %d ",h->next->coef,h->next->expn);
+		h=h->next;
+	}
+	return 0; 
+}
+	
