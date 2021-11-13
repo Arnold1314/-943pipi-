@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+int a[100000];
+void check(string s){
+	stack<char> st;
+	string ans;
+	while(!st.empty()) st.pop();
+	for(int i=0;i<s.size();i++){
+		if(s[i]=='('){
+			if(st.size())printf("(");
+			st.push(s[i]);
+		}
+		else {
+			st.pop();
+			if(!st.empty())printf(")");
+		}
+	}
+	printf("\n");
+}
+
+int main(){
+	string s;
+	while(cin>>s){
+		check(s);
+	}
+}
