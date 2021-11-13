@@ -5,5 +5,5 @@ stack<char>st
   st.empty();st.push();st.pop()
 
 string s
-s.size();
+s.size();reverse(s.begin(),s.end());s+='j';
 isdigit();min();max();当比较三个及以上数字时用大括号min({1,2,3,4});
