@@ -6,4 +6,4 @@ stack<char>st
 
 string s
 s.size();
-min();max();当比较三个及以上数字时用大括号min({1,2,3,4});
+isdigit();min();max();当比较三个及以上数字时用大括号min({1,2,3,4});
