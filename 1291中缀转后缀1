@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	string s;
+	stack<char> st;
+	cin>>s;
+	int v[999];
+	v['+']=v['-']=0;
+	v['*']=v['/']=1;
+	v['^']=2;
+	for(int i=0;i<s.size();i++){
+		if(s[i]>='a'&&s[i]<='z')printf("%c",s[i]);
+		else {
+			while(!st.empty()&&v[st.top()]>=v[s[i]]){
+				printf("%c",st.top());
+				st.pop(); 
+			}
+			st.push(s[i]);
+		}
+	}
+	while(!st.empty()){
+		printf("%c",st.top());
+		st.pop();
+	}
+}
