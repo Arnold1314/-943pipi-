@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	string s,t;
+    stack<char>st;
+    queue<char>que;
+    
+    while(cin>>s){
+    	while(st.size())st.pop();
+    	while(que.size())que.pop();
+    	t.clear();
+    	for(int i=0;i<s.size();i++){
+    	if(s[i]!=')')st.push(s[i]);
+    	else{
+    		while(st.top()!='('){
+    			que.push(st.top());
+				st.pop(); 
+			}
+			st.pop();
+			while(que.size()){
+				st.push(que.front());
+				que.pop();
+			}						
+		}
+	}
+	while(st.size()){
+		t+=st.top();
+		st.pop();
+	}
+	reverse(t.begin(),t.end());
+	cout<<t<<endl;
+	}
+    
+}
