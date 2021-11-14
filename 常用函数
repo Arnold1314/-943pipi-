@@ -1,9 +1,12 @@
 vector sq
 sq.back();sq.push_back();sq.pop_back();
 
+queue<char>que
+que.empty();que.size();que.front();que.back();que.push();que.pop();
+
 stack<char>st
-  st.empty();st.push();st.pop()
+  st.empty();st.push();st.pop();st.size();st.pop();
 
 string s
-s.size();reverse(s.begin(),s.end());s+='j';
+s.size();reverse(s.begin(),s.end());s+='j';s.clear();
 isdigit();min();max();当比较三个及以上数字时用大括号min({1,2,3,4});
