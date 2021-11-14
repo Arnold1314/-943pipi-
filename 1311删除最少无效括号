@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int main(){
+	string s;
+    cin>>s;
+    vector<int>forbid;
+    stack<int>st;
+    for(int i=0;i<s.size();i++){
+    	forbid.push_back(0);
+    	if(s[i]=='(')st.push(i);
+    	else {
+    		if(st.size())st.pop();
+    		else forbid[i]=1;
+		}
+	}
+	while(st.size()){
+		forbid[st.top()]=1;
+		st.pop();
+	}
+	for(int i=0;i<s.size();i++){
+		if(!forbid[i])cout<<s[i];
+	}
+}
