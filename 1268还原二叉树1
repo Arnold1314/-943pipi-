@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct Tree{
+	int val;
+	Tree *left, *right;
+}TreeNode;
+
+TreeNode *build(int *pre,int *in,int l1,int h1,int l2,int h2){
+	if(l1>h1)return NULL;
+	int i,llen,rlen;
+	TreeNode *root=new TreeNode;
+	root->val=pre[l1];
+	for(i=l2;in[i]!=root->val;i++);
+	llen=i-l2;
+	rlen=h2-i;
+	root->left=build(pre,in,l1+1,l1+llen,l2,i-1);
+	root->right=build(pre,in,l1+llen+1,h1,i+1,h2);
+	return root;
+}
+void print(TreeNode *T){
+	if(T==NULL)return;
+	print(T->left);
+	print(T->right);
+	printf("%d ",T->val);
+}
+int main(){
+	int n;
+	cin>>n;
+	int pre[110],in[110];
+	for(int i=0;i<n;i++){
+		cin>>pre[i];
+	}
+	for(int i=0;i<n;i++){
+		cin>>in[i];
+	}
+	TreeNode *T=build(pre,in,0,n-1,0,n-1);
+	print(T);
+}
