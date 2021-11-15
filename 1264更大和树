@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct Tree{
+	int val;
+	Tree *left, *right;
+}TreeNode;
+int sum=0;
+TreeNode *build(){
+	int x;
+	cin>>x;
+	if(x==-1)return NULL;
+	TreeNode *T=new TreeNode;
+	T->val=x;
+	T->left=build();
+	T->right=build(); 
+	return T; 
+}
+
+void dfs(TreeNode *T){
+	if(!T)return;
+	dfs(T->right);
+	T->val+=sum;
+	sum=T->val;
+	dfs(T->left);
+	
+}
+void print(TreeNode *T){
+	if(!T){
+		cout<<"-1 ";
+		return;	
+	}
+	cout<<T->val<<" ";
+	print(T->left);
+	print(T->right);
+}
+int main(){
+	TreeNode* T=build();
+	dfs(T);
+	print(T);
+}
