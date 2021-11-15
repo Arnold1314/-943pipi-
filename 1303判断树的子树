@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct Tree{
+	int val;
+	Tree *left, *right;
+}TreeNode;
+bool flag=false;
+TreeNode *build(){
+	int x;
+	cin>>x;
+	if(x==-1)return NULL;
+	TreeNode *T=new TreeNode;
+	T->val=x;
+	T->left=build();
+	T->right=build(); 
+	return T; 
+}
+
+bool issame(TreeNode *Tree1,TreeNode *Tree2){
+	if(!Tree1&&!Tree2) return true;
+	if(!Tree1&&Tree2||Tree1&&!Tree2||Tree1->val!=Tree2->val){
+		return false;
+	}
+	if(issame(Tree1->left,Tree2->left)&&issame(Tree1->right,Tree2->right))return true;
+	}
+void check(TreeNode *Tree1,TreeNode *Tree2){
+	if(!Tree1||flag)return;
+	if(Tree1->val==Tree2->val){
+		flag=issame(Tree1,Tree2);
+	}
+		check(Tree1->left,Tree2);
+		check(Tree1->right,Tree2);	
+	
+}
+int main(){
+	TreeNode* Tree1=build();
+	TreeNode* Tree2=build();
+	check(Tree1,Tree2);
+	if(flag)cout<<"yes";
+	else cout<<"no";
+}
