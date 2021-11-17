@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct Tree{
+	int val;
+	Tree *left, *right;
+}TreeNode;
+int x,y;
+void build(TreeNode *&t){
+	int x;
+	cin>>x;
+	if(x==-1){
+		t=NULL;
+		return;
+	}
+	else{
+	t=new TreeNode;
+	t->val=x;
+	t->left=NULL;
+	t->right=NULL;
+	build(t->left);
+	build(t->right);
+	}
+}
+TreeNode *find(TreeNode *t){
+	if(t==NULL||t->val==x||t->val==y)return t;
+	TreeNode *l=find(t->left);
+	TreeNode *r=find(t->right);
+	if(l&&r)return t;
+	return l?l:r;
+}
+int main(){
+	TreeNode *t=NULL;
+	build(t);
+	cin>>x>>y;
+	cout<<find(t)->val;
+}
