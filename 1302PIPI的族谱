@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct Tree{
+	int val;
+	Tree *left, *right;
+}TreeNode;
+int x,y,lx,ly,f=0;
+void build(TreeNode *&t){
+	int x;
+	cin>>x;
+	if(x==-1){
+		t=NULL;
+		return;
+	}
+	else{
+	t=new TreeNode;
+	t->val=x;
+	t->left=NULL;
+	t->right=NULL;
+	build(t->left);
+	build(t->right);
+	}
+}
+int depth(TreeNode *t,int x,int h){
+	int l,r;
+	if(!t)return 0;
+	if(t->val==x)return h;
+	l=depth(t->left,x,h+1);
+	r=depth(t->right,x,h+1);
+	return l?l:r; 
+}
+void judge(TreeNode *t){
+	if(f||!t)return;
+	if(t->left&&t->right&&t->left->val==x&&t->right->val==y||(t->left&&t->right&&t->right->val==x&&t->left->val==y)){
+		f=1;
+		return ;
+	}
+	judge(t->left);
+	judge(t->right);
+}
+int main(){
+	TreeNode *t=NULL;
+	build(t);
+	cin>>x>>y;
+	lx=depth(t,x,1);
+	ly=depth(t,y,1);
+	judge(t);
+	if(lx==ly&&lx!=1)f?cout<<"brother":cout<<"cousin";
+	else cout<<"other relathionship";
+}
