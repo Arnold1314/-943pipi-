@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct Tree{
+	int val;
+	Tree *left, *right;
+}TreeNode;
+int s;
+vector<int>a[3];
+void build(TreeNode *&t){
+	int x;
+	cin>>x;
+	if(x==-1){
+		t=NULL;
+		return;
+	}
+	else{
+	t=new TreeNode;
+	t->val=x;
+	t->left=NULL;
+	t->right=NULL;
+	build(t->left);
+	build(t->right);
+	}
+}
+void sort(TreeNode *t,int j){
+	if(!t)return;
+	sort(t->left,j);
+	a[j].push_back(t->val);
+	sort(t->right,j);
+}
+
+int main(){
+	TreeNode *t1=NULL;
+	TreeNode *t2=NULL;
+	build(t1);
+	build(t2);
+	sort(t1,0);
+	sort(t2,1);
+	int i=0,j=0;
+	while(i<a[0].size()&&j<a[1].size()){
+		if(a[0][i]<a[1][j])a[2].push_back(a[0][i++]);
+		else if(a[0][i]>a[1][j]){
+			a[2].push_back(a[1][j++]);
+		}
+		else {
+			a[2].push_back(a[0][i++]);
+			a[2].push_back(a[1][j++]);
+		}
+	}
+	while(i<a[0].size()){
+		a[2].push_back(a[0][i++]);
+	}
+	while(j<a[1].size()){
+		a[2].push_back(a[1][j++]);
+	}
+	for(int o=0;o<a[2].size();o++){
+		cout<<a[2][o]<<" ";
+	}
+}
