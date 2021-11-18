@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct Tree{
+	int val;
+	Tree *left, *right;
+}TreeNode;
+void build(TreeNode *&t){
+	int x;
+	cin>>x;
+	if(x==-1){
+		t=NULL;
+		return;
+	}
+	else{
+	t=new TreeNode;
+	t->val=x;
+	t->left=NULL;
+	t->right=NULL;
+	build(t->left);
+	build(t->right);
+	}
+}
+int ans[100005]={0},H=0;
+void travel(TreeNode *t,int h){
+	if(!t)return;
+	if(t->val>ans[h]){
+		ans[h]=t->val;
+	}
+	if(H<h)H=h;
+	travel(t->left,h+1);
+	travel(t->right,h+1);
+	
+}
+int main(){
+	TreeNode *t=NULL;
+	build(t);
+	travel(t,0);
+	for(int i=0;i<=H;i++){
+		cout<<ans[i]<<" ";
+	}
+}
