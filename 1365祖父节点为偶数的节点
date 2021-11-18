@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct Tree{
+	int val;
+	Tree *left, *right;
+}TreeNode;
+int s;
+vector<int>a[3];
+void build(TreeNode *&t){
+	int x;
+	cin>>x;
+	if(x==-1){
+		t=NULL;
+		return;
+	}
+	else{
+	t=new TreeNode;
+	t->val=x;
+	t->left=NULL;
+	t->right=NULL;
+	build(t->left);
+	build(t->right);
+	}
+}
+
+void judge(TreeNode *t,TreeNode *fa,TreeNode *gfa){
+	if(!t)return;
+	if(gfa&&gfa->val%2==0){
+		s+=t->val;
+	}
+	judge(t->left,t,fa);
+	judge(t->right,t,fa);
+	
+}
+int main(){
+	TreeNode *t=NULL;
+	build(t);
+	judge(t,NULL,NULL);
+	cout<<s;
+}
