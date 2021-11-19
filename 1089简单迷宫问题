@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+ using namespace std;
+ int maze[10][10],vis[10][10];
+ int dir[][2]={{1,0},{0,1},{-1,0},{0,-1}};
+ typedef struct no{
+ 	int x,y;
+ }Node;
+typedef struct road{
+ 	int x,y;
+ }Road;
+ Road road[10][10];
+ void dfs(int x,int y){
+ 	if(x==-1&&y==-1)return;
+ 	dfs(road[x][y].x,road[x][y].y);
+ 	cout<<"("<<x<<", "<<y<<")"<<endl;
+ }
+ queue<Node> que;
+ void bfs(){
+ 	memset(vis,0,sizeof(vis));
+ 	Node node;
+ 	node.x=0;
+ 	node.y=0;
+ 	vis[0][0]=1;
+ 	road[0][0].x=-1;
+	road[0][0].y=-1;
+	que.push(node);
+	while(!que.empty()){
+		Node now=que.front();
+		que.pop();
+		if(now.x==4&&now.y==4){
+			dfs(4,4);
+			return;
+		}
+		Node next;
+		for(int i=0;i<4;i++){
+			int nextx=now.x+dir[i][0];
+			int nexty=now.y+dir[i][1];
+			if(nextx<0||nextx>4||nexty<0||nexty>4||vis[nextx][nexty]==1||maze[nextx][nexty]==1)continue;
+			next.x=nextx;next.y=nexty;
+			vis[nextx][nexty]=1;
+			que.push(next);
+			road[nextx][nexty].x=now.x;
+			road[nextx][nexty].y=now.y;
+		}
+	}
+ }
+ int main(){
+ 	for(int i=0;i<5;i++){
+ 		for(int j=0;j<5;j++){
+ 			cin>>maze[i][j];
+		 }
+	 }
+	 bfs();
+	 return 0;
+ }
