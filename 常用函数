@@ -9,4 +9,4 @@ stack<char>st
 
 string s
 s.size();reverse(s.begin(),s.end());s+='j';s.clear();
-isdigit();min();max();当比较三个及以上数字时用大括号min({1,2,3,4});sort(0,n)(n是最后一个元素的下一个指针);swap(也可以用于交换地址）；
+isdigit();min();max();当比较三个及以上数字时用大括号min({1,2,3,4});sort(0,n)(n是最后一个元素的下一个指针);swap(也可以用于交换地址）；memset(vis,0,sizeof(vis));
