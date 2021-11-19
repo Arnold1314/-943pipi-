@@ -1,0 +1,47 @@
+//这种写法是先求出深度，再找出第一个这个深度的值，另一种写法是设立一个H用来保存最大深度，如果遍历到的值比当前深度大，
+//则更新H，并且将当前的值存入变量ans作为答案。
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct Tree{
+	int val;
+	Tree *left, *right;
+}TreeNode;
+void build(TreeNode *&t){
+	int x;
+	cin>>x;
+	if(x==-1){
+		t=NULL;
+		return;
+	}
+	else{
+	t=new TreeNode;
+	t->val=x;
+	t->left=NULL;
+	t->right=NULL;
+	build(t->left);
+	build(t->right);
+	}
+}
+int s;
+int depth(TreeNode *t,int h){
+	if(!t)return h;
+	int l=depth(t->left,h+1);
+	int r=depth(t->right,h+1);
+	return l>r?l:r;
+}
+int f;
+void travel(TreeNode *t,int x){
+	if(!t||f)return;
+	if(!t->left&&!t->right&&x+1==s){
+		cout<<t->val;
+		f=1;
+	}
+	travel(t->left,x+1);
+	travel(t->right,x+1);
+}
+int main(){
+	TreeNode *t=NULL;
+	build(t);
+	s=depth(t,0);
+	travel(t,0);
+}
