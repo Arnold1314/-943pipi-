@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef struct Tree{
+	int val;
+	Tree *left, *right;
+}TreeNode;
+int f=1;
+void build(TreeNode *&t){
+	int x;
+	cin>>x;
+	if(x==-1){
+		t=NULL;
+		return;
+	}
+	else{
+	t=new TreeNode;
+	t->val=x;
+	t->left=NULL;
+	t->right=NULL;
+	build(t->left);
+	build(t->right);
+	}
+}
+
+int depth(TreeNode *t,int h){
+	if(!t)return h;
+	int l=depth(t->left,h+1);
+	int r=depth(t->right,h+1);
+	return l>r?l:r;
+}
+void judge(TreeNode *t){
+	if(!f||!t)return;
+	int l=depth(t->left,0);
+	int r=depth(t->right,0);
+	if(abs(l-r)>1)f=0;
+	judge(t->left);
+	judge(t->right);
+}
+int main(){
+	TreeNode *t=NULL;
+	build(t);
+	judge(t);
+	if(f)cout<<"YES";
+	else cout<<"NO";
+}
