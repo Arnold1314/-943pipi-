@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+char maze[101][101]; 
+int n,m;
+int dir[8][2]={{1,0},{0,1},{-1,0},{0,-1},{-1,-1},{1,1},{-1,1},{1,-1}};
+
+void dfs(int x,int y){
+	maze[x][y]='*';
+	for(int i=0;i<8;i++){
+		int nextx=x+dir[i][0];
+		int nexty=y+dir[i][1];
+		if(nextx<0||nextx>=n||nexty<0||nexty>=m||maze[nextx][nexty]!='@')continue;
+		dfs(nextx,nexty);
+	}
+}
+int main(){
+	while(cin>>n>>m){
+		int cou=0;
+		if(n==0&&m==0)break;
+		for(int i=0;i<n;i++){
+			cin>>maze[i];
+		} 
+		for(int i=0;i<n;i++){
+			for(int j=0;j<m;j++){
+				if(maze[i][j]=='@'){
+					cou++;
+					dfs(i,j);
+				}
+			}
+		}
+		cout<<cou<<endl;
+	}
+	return 0;
+}
