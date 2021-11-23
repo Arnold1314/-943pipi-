@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+int vis_col[30],vis_l[30],vis_r[30];
+int sum=0;
+int n;
+void dfs(int row){
+	if(row==n){
+		sum++;
+		return; 
+	}
+	for(int col=0;col<n;col++){
+		if(!vis_col[col]&&!vis_l[col-row+n]&&!vis_r[col+row]){
+			vis_col[col]=vis_l[col-row+n]=vis_r[col+row]=1;
+			dfs(row+1);
+			vis_col[col]=vis_l[col-row+n]=vis_r[col+row]=0;
+		}
+	}
+	
+}
+int main(){
+	cin>>n;
+	dfs(0);
+	cout<<sum; 
+}
