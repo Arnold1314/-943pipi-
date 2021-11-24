@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+void Move(char x,int n,char y){
+	printf("Move disk %d from %c to %c\n",n,x,y);
+}
+void Hanoi(int n,char x,char y,char z){
+	if(n==1)Move(x,1,z);
+	else{
+		Hanoi(n-1,x,z,y);
+		Move(x,n,z);
+		Hanoi(n-1,y,x,z); 
+	}	
+}
+int main(){
+	int n;
+	while(cin>>n){
+		Hanoi(n,'A','B','C');
+		cout<<endl;
+	}
+	return 0;
+}
