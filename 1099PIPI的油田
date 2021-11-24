@@ -32,3 +32,46 @@ int main(){
 	}
 	return 0;
 }
+
+
+
+//并查集写法
+#include<bits/stdc++.h>
+using namespace std;
+const int N=105;
+int f[N*N];
+char mp[N][N];
+int dir[][2]={{0,1},{0,-1},{1,0},{-1,0},{1,1},{1,-1},{-1,1},{-1,-1}};
+int get(int x){
+	return x==f[x]?x:f[x]=get(f[x]);
+}
+int main(){
+	int n,m;
+	while(cin>>n>>m){
+		if(n==0||m==0)break;
+		int cnt=n*m;
+		for(int i=0;i<n*m;i++)f[i]=i;
+		for(int i=0;i<n;i++)scanf("%s",mp[i]);
+		for(int i=0;i<n;i++){
+			for(int j=0;j<m;j++){
+				if(mp[i][j]=='*')cnt--;
+				else{
+					for(int k=0;k<8;k++){
+						int nx=i+dir[k][0];
+						int ny=j+dir[k][1];
+						if(nx>=0&&ny>=0&&nx<n&&ny<m&&mp[nx][ny]=='@'){
+							int fx=get(i*m+j);
+							int fy=get(nx*m+ny);
+							if(fx!=fy){
+								f[fx]=fy;
+								cnt--;
+							}
+						} 
+					}
+				}
+			}
+		}
+			cout<<cnt<<endl; 
+	}
+	return 0;
+}
