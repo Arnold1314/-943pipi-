@@ -1,0 +1,41 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+const int N=105; 
+struct Edge{
+	int l,r,len;
+}edge[N*(N-1)/2];
+int n,m,f[N];
+int get(int x){
+	return x==f[x]?x:f[x]=get(f[x]);
+}
+int cmp(Edge a,Edge b){
+	return a.len<b.len;
+}
+int kruskal(int m){
+	sort(edge+1,edge+1+m,cmp);
+	int cost=0;
+	for(int i=1;i<=m;i++){
+		int fx=get(edge[i].l);
+		int fy=get(edge[i].r);
+		if(fx!=fy){
+			f[fx]=fy;
+			cost+=edge[i].len;
+		}
+	}
+	return cost;
+}
+int main(){
+	while(cin>>n&&n){
+		for(int i=1;i<=n;i++)f[i]=i;//需要注意的是这些i都要从1开始，因为题目中的第一个节点标号为1，而不是0
+		int m=n*(n-1)/2;
+		for(int i=1;i<=m;i++){
+			int c,d;
+			cin>>edge[i].l>>edge[i].r>>c>>d;
+			if(!d)edge[i].len=c;
+			else edge[i].len=0;
+		}
+		cout<<kruskal(m)<<endl;
+	}
+	return 0;
+}
