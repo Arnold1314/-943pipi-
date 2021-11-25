@@ -1,0 +1,69 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int N=30;
+int a[N],b[N];
+typedef struct ArcNode{
+	int adjvex;
+	ArcNode *next;
+}ArcNode;
+typedef struct {
+	int data;
+	ArcNode *first;
+}VNode;
+typedef struct{
+	VNode vexlist[N];
+	int arcnum,vexnum;
+}LGraph;
+void create(LGraph &G,int n,int m){//一定要注意加引用符号，总是忘了加，卡在这里一个小时
+	G.arcnum=m;
+	G.vexnum=n;
+	for(int i=1;i<=n;i++){
+		G.vexlist[i].first=NULL;
+		G.vexlist[i].data=i;
+	}
+	for(int i=0;i<m;i++){
+		ArcNode *p=new ArcNode;
+		p->adjvex=b[i];
+		p->next=G.vexlist[a[i]].first;
+		G.vexlist[a[i]].first=p;
+	}
+}
+bool judge(LGraph G){
+	queue<int>q;
+	int cnt=0;
+	int indegree[N]={0};
+	for(int i=1;i<=G.vexnum;i++){
+		ArcNode *p=G.vexlist[i].first;
+		while(p){
+			indegree[p->adjvex]++;
+			p=p->next;
+		}
+	}
+		
+	for(int i=1;i<=G.vexnum;i++){
+		if(indegree[i]==0)q.push(i);
+	}	
+	while(!q.empty()){
+		int now=q.front();
+		q.pop();
+		cnt++;
+		for(ArcNode *p=G.vexlist[now].first;p;p=p->next){
+			int u = p->adjvex;
+			if(!(--indegree[u]))q.push(u);
+		}
+	}
+	if(cnt<G.vexnum)return false;
+	return true;
+}
+int main(){
+	int n,m;
+	cin>>n>>m;
+	for(int i=0;i<m;i++){
+	cin>>a[i]>>b[i];
+	}
+	LGraph G;
+	create(G,n,m);
+	if(judge(G))cout<<"no"<<endl;
+	else cout<<"yes"<<endl;
+	return 0;
+}
