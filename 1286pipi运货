@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	int i,j,k,n,q,r[105][105],c[105];
+	cin>>n;
+	for(i=1;i<=n;i++){
+		for(j=1;j<=n;j++){
+			cin>>k;
+			r[i][j]=(k==-1?1e8:k);
+		}
+	} 
+	for(k=1;k<=n;k++)cin>>c[k];
+	for(k=1;k<=n;k++)
+		for(i=1;i<=n;i++)
+			for(j=1;j<=n;j++)if(r[i][k]+r[k][j]+c[k]<r[i][j])r[i][j]=r[i][k]+r[k][j]+c[k];
+	cin>>q;
+	while(q--){
+		cin>>i>>j;
+		r[i][j]<1e8?cout<<r[i][j]<<endl:cout<<"-1\n";
+	}
+	return 0;
+}
