@@ -67,3 +67,50 @@ int main(){
 	else cout<<"yes"<<endl;
 	return 0;
 }
+//第二种不用结构体，而是用数组来代替邻接表
+#include<bits/stdc++.h>
+using namespace std;
+const int N=30;
+int a[N],b[N];
+vector<int>e[N];
+int n,m;
+void create(){
+	for(int i=0;i<m;i++){
+		e[a[i]].push_back(b[i]);
+	}
+}
+bool judge(){
+	queue<int>q;
+	int cnt=0;
+	int indegree[N]={0};
+	for(int i=1;i<=n;i++){
+		for(int j=0;j<e[i].size();j++){
+			indegree[e[i][j]]++;
+		}
+	}
+		
+	for(int i=1;i<=n;i++){
+		if(indegree[i]==0)q.push(i);
+	}	
+	while(!q.empty()){
+		int now=q.front();
+		q.pop();
+		cnt++;
+		for(int i=0;i<e[now].size();i++){
+			int u = e[now][i];
+			if(!(--indegree[u]))q.push(u);
+		}
+	}
+	if(cnt<n)return false;
+	return true;
+}
+int main(){
+	cin>>n>>m;
+	for(int i=0;i<m;i++){
+	cin>>a[i]>>b[i];
+	}
+	create();
+	if(judge())cout<<"no"<<endl;
+	else cout<<"yes"<<endl;
+	return 0;
+}
