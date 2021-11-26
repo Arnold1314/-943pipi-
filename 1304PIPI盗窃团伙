@@ -1,4 +1,4 @@
-//法一：用了并查集
+//法一：用了并查集，其实根本不用并查集，用完弗洛伊德后直接就可以判断是否连通，若不连通就会有两点之间的距离为无穷
 #include<bits/stdc++.h>
 using namespace std;
 int n,m,r[505][505],f[505];
@@ -53,5 +53,51 @@ int main(){
 	}
 	if(cnt>1)cout<<"What a pity!";
 	else solve();
+	return 0;
+}
+//法二
+#include<bits/stdc++.h>
+using namespace std;
+int n,m,r[505][505],f[505];
+void floyd(){
+	for(int k=1;k<=n;k++)
+	for(int i=1;i<=n;i++)
+	for(int j=1;j<=n;j++)if(r[i][k]+r[k][j]<r[i][j])r[i][j]=r[i][k]+r[k][j];
+}
+void solve(){
+	floyd();
+	for(int i=1;i<=n;i++)
+	for(int j=1;j<=n;j++)
+	if(r[i][j]==1e9){
+		cout<<"What a pity!";
+		return;
+	}
+	int cen_ans=1,ans=1e9;
+	for(int cen=1;cen<=n;cen++){
+		int Max=0;
+		for(int j=1;j<=n;j++){
+			Max=max(Max,r[cen][j]);
+		}
+		if(ans>Max){
+			ans=Max;
+			cen_ans=cen;
+		}
+	}
+	cout<<cen_ans<<" "<<ans;
+}
+int main(){
+	cin>>n>>m;
+	int a,b,w;
+	for(int i=1;i<=n;i++){
+		f[i]=i;
+		for(int j=1;j<=n;j++){
+			r[i][j]=i==j?0:1e9;
+		}
+	} 
+	for(int i=1;i<=m;i++){
+		cin>>a>>b>>w;
+		r[a][b]=r[b][a]=w;
+	}
+	solve();
 	return 0;
 }
