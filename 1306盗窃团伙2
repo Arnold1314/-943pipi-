@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n,m;
+const int N=1e5;
+int f[N];
+typedef struct Edge{
+	int l,r,days;
+}e;
+Edge edge[2*N];
+int get(int x){
+	return x==f[x]?x:f[x]=get(f[x]);
+}
+int cmp(Edge a,Edge b){
+	return a.days<b.days;
+}
+int kruskal(){
+	for(int i=1;i<=n;i++)f[i]=i;
+	sort(edge+1,edge+m+1,cmp);
+	for(int i=1;i<=m;i++){
+		int l=edge[i].l;
+		int r=edge[i].r;
+		int days=edge[i].days;
+		int fl=get(l);
+		int fr=get(r);
+		if(fl!=fr){
+			f[fl]=fr;
+		}
+		if(get(1)==get(n))return days;
+	}
+	return -1;
+}
+int main(){
+	cin>>n>>m;
+	for(int i=1;i<=m;i++){
+		cin>>edge[i].l>>edge[i].r>>edge[i].days;
+	} 
+	int ans=kruskal();
+	if(ans==-1)cout<<"How lucky!";
+	else cout<<ans<<endl;
+}
