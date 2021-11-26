@@ -1,3 +1,4 @@
+//floyd复杂的太高，不合适，用dij
 #include<bits/stdc++.h>
 using namespace std;
 int n,m,s,t,a;
