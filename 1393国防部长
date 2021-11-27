@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n,f[110];
+const int N=110;
+typedef struct Edge{
+	int l,r;
+	double d; 
+}edge;
+typedef struct Point{
+	int x,y;
+}point;
+edge e[N*N];
+point po[110];
+int get(int x) {
+	return x==f[x]?x:f[x]=get(f[x]);
+}
+
+
+bool cmp(edge a,edge b){
+	return a.d<b.d;
+}
+int main(){
+	while(cin>>n){
+		int r=0;
+		for(int i=1;i<=n;i++){
+			cin>>po[i].x>>po[i].y;
+			f[i]=i;
+		}
+		for(int i=1;i<=n;i++){
+			for(int j=i+1;j<=n;j++){
+				e[r].l=i;
+				e[r].r=j;
+				e[r++].d=1ll*(po[i].x-po[j].x)*(po[i].x-po[j].x)+1ll*(po[i].y-po[j].y)*(po[i].y-po[j].y);//这里的1ll必须加，因为整形相乘的数据非常大，得转换成longlong形
+			}
+		}
+		sort(e,e+r,cmp);
+		double ans=0;
+		for(int i=0;i<r;i++){
+			int fl=get(e[i].l);
+			int fr=get(e[i].r);
+			if(fl!=fr){
+				f[fl]=fr;
+				ans=e[i].d;
+			}
+		}
+		printf("%.2f\n",sqrt(ans));
+	}
+	return 0;
+}
+//
