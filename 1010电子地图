@@ -46,3 +46,53 @@ int main(){
 		else printf("KENG\n");
 	}
 }
+//dijstra
+#include<bits/stdc++.h>
+using namespace std;
+int n,m,s,t,a;
+int mp[1010][1010],dis[1010];
+int vis[1010];
+void dij(){
+	for(int i=1;i<=n;i++){
+		dis[i]=mp[s][i];
+	}
+	vis[s]=1;
+	for(int i=1;i<n;i++){
+		int minn=1e9,minid;
+		for(int j=1;j<=n;j++){
+			if(!vis[j]&&minn>dis[j]){
+				minn=dis[j];
+				minid=j;
+			}
+		}
+		vis[minid]=1;
+		for(int j=1;j<=n;j++){
+			if(!vis[j]&&dis[j]>dis[minid]+mp[minid][j]){
+				dis[j]=dis[minid]+mp[minid][j];
+			}
+		}
+	}
+	if(dis[t]<=a)cout<<"YES "<<dis[t]<<endl;
+	else cout<<"KENG"<<endl;
+}
+int main(){
+	while(scanf("%d %d %d %d %d",&n,&m,&s,&t,&a)!=EOF){
+		memset(vis,0,sizeof(vis));//因为vis数组是全局变量，这是个输入多组数据，所以必须在每一次新的循环都使得vis初始化为0，如果在声明vis时
+					//初始化，那么在下一次循环开始就没有被初始化了
+		for(int i=1;i<=n;i++)
+		for(int j=1;j<=n;j++){
+			if(i==j)mp[i][j]=0;
+			else mp[i][j]=1e9;
+		}
+		for(int i=1;i<=m;i++){
+			int u,v,w;
+			cin>>u>>v>>w;
+			if(u%2==0)mp[u][v]=w+2;
+			else mp[u][v]=w+1;
+			if(v%2==0)mp[v][u]=w+2;
+			else mp[v][u]=w+1;
+		}
+		dij();
+	}
+	return 0;
+}
