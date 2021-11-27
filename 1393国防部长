@@ -47,4 +47,50 @@ int main(){
 	}
 	return 0;
 }
-//
+//prim算法
+#include<bits/stdc++.h>
+using namespace std;
+int n,f[110];
+const int N=110;
+typedef struct Point{
+	double x,y;
+}point;
+point po[110];
+double mp[N][N];
+int main(){
+	while(cin>>n){
+		for(int i=1;i<=n;i++){
+			cin>>po[i].x>>po[i].y;
+		}
+		for(int i=1;i<=n;i++){
+			for(int j=1;j<=n;j++){
+				if(i==j)mp[i][j]=0;
+				else mp[j][i]=mp[i][j]=1ll*(po[i].x-po[j].x)*(po[i].x-po[j].x)+1ll*(po[i].y-po[j].y)*(po[i].y-po[j].y);
+			}
+		}
+		int vis[N]={0};
+		double dis[N];
+		vis[1]=1;
+		double ans=0;
+		for(int i=2;i<=n;i++)dis[i]=mp[1][i];
+		for(int i=1;i<n;i++){
+			double min=1e9;
+			int minid=1;
+			for(int j=1;j<=n;j++){
+				if(!vis[j]&&min>dis[j]){
+					minid=j;
+					min=dis[j];
+				}
+			} 
+			vis[minid]=1;
+			for(int j=1;j<=n;j++){
+				if(!vis[j]&&dis[j]>mp[minid][j])dis[j]=mp[minid][j];
+			}
+		}
+		for(int i=2;i<=n;i++){
+			if(ans<dis[i])ans=dis[i];
+		}
+		printf("%.2f\n",sqrt(ans));
+	}
+	return 0;
+}
