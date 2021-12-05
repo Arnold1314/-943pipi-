@@ -10,7 +10,7 @@ int main(){
 	for(int i=1;i<=n;i++){
 		t[0]=t[i];
 		int j;
-		for(j=i-1;j>0&&t[j]>t[0];j--){
+		for(j=i-1;t[j]>t[0];j--){
 		 	t[j+1]=t[j];
 			}
 			t[j+1]=t[0];
