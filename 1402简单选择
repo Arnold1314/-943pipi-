@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+void simplesort(int *t,int n){
+	int i,j,d;
+	for(i=1;i<=n;i++){
+		d=i;
+		for(j=i+1;j<=n;j++){
+			if(t[d]>t[j])d=j;
+		}
+		if(d!=i){
+			int tmp=t[i];
+			t[i]=t[d];
+			t[d]=tmp;
+		}
+	}
+}
+int main(){
+	int n;
+	cin>>n;
+	int t[1010]={0};
+	for(int i=1;i<=n;i++){
+		cin>>t[i];
+	}
+	simplesort(t,n);
+		for(int i=1;i<=n;i++){
+			cout<<t[i]<<" ";
+	}
+	return 0;
+}
