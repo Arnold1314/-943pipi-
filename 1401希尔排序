@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+void ShellInsert(int *t,int d,int len){
+	int i,j;
+	for(i=d+1;i<=len;i++){
+		t[0]=t[i];
+		for(j=i-d;j>0&&t[0]<t[j];j-=d){
+			t[j+d]=t[j];
+		}
+		t[j+d]=t[0];
+	}
+}
+void ShellSort(int *t,int len){
+	int d=len/2;
+	while(d>=1){
+		ShellInsert(t,d,len);
+		d/=2;
+	}
+}
+int main(){
+	int n;
+	cin>>n;
+	int t[1010]={0};
+	for(int i=1;i<=n;i++){
+		cin>>t[i];
+	}
+	ShellSort(t,n);
+		for(int i=1;i<=n;i++){
+			cout<<t[i]<<" ";
+	}
+	return 0;
+}
