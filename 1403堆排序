@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+void Adjust(int *t,int len,int k){
+		t[0]=t[k];
+		for(int j=2*k;j<=len;j*=2){
+			if(j<len&&t[j]<t[j+1])j++;
+			if(t[0]>=t[j])break;
+			else{
+				t[k]=t[j];
+				k=j;
+			}
+		}
+		t[k]=t[0];
+	}
+
+void BuildHeap(int *t,int len){
+	for(int i=len/2;i>0;i--){
+		Adjust(t,len,i);
+	}
+}
+
+
+void Heap(int *t,int len){
+	BuildHeap(t,len);
+	for(int i=len;i>1;i--){
+		swap(t[1],t[i]);
+		Adjust(t,i-1,1);
+	}
+}
+int main(){
+	int n;
+	cin>>n;
+	int t[101000]={0};
+	for(int i=1;i<=n;i++){
+		cin>>t[i];
+	}
+	Heap(t,n);
+		for(int i=1;i<=n;i++){
+			cout<<t[i]<<" ";
+	}
+	return 0;
+}
