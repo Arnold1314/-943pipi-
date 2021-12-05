@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int Adjust(int *t,int l,int r){
+	int x=t[l];
+	while(l<r){
+		while(l<r&&t[r]>=x)r--;
+		if(l<r){
+			t[l]=t[r];
+			l++;
+		}
+		while(l<r&&t[l]<x)l++;
+		if(l<r){
+			t[r]=t[l];
+			r--;
+		}
+	}
+	t[l]=x;
+	return l;
+}
+void quick_sort(int *t,int l,int r){
+	if(l<r){
+		int i=Adjust(t,l,r);
+		quick_sort(t,l,i-1);
+		quick_sort(t,i+1,r);
+	}
+}
+int main(){
+	int n;
+	cin>>n;
+	int t[101000]={0};
+	for(int i=1;i<=n;i++){
+		cin>>t[i];
+	}
+	quick_sort(t,1,n);
+		for(int i=1;i<=n;i++){
+			cout<<t[i]<<" ";
+	}
+	return 0;
+}
